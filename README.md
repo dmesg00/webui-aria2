@@ -1,6 +1,6 @@
-# WebUI-Aria2
+# webui-aria2 custom
 
-![Main interface](/screenshots/overview.png?raw=true)
+![Main interface](/screenshots/overview.png)
 
 The aim for this project is to create the worlds best and hottest interface to interact with aria2. aria2 is the worlds best file downloader, but sometimes the command line brings more power than necessary. The project was initially created as part of the GSOC scheme, however it has rapidly grown and changed with tremendous support and feedback from the aria2 community.
 
@@ -15,7 +15,6 @@ If aria2 is not installed in your local machine then head on to https://aria2.gi
 Then to use the WebUI-Aria2,
 
 - You can either download this repository and open index.html from `docs` folder.
-- Or you could just head on to https://ziahamza.github.io/webui-aria2 and start downloading files! Once you have visited the URL thanks to [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) you can open the same URL even when you are offline.
 - Or you can also use NodeJS to create simple server by using the following command from the project folder.
 
 ```bash
