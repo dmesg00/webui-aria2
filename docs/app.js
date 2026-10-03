@@ -166,7 +166,7 @@
         "$titlePattern",
         "active: {active} - waiting: {waiting} - stopped: {stopped} — {name}"
       )
-      .constant("$pageSize", 11)
+      .constant("$pageSize", 25)
       .constant("$authconf", {
         host: location.protocol.startsWith("http") ? location.hostname : "localhost",
         path: "/jsonrpc",

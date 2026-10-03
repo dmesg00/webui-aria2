@@ -686,9 +686,6 @@
               <span ng-if="!hasDirectURL()">{{file.relpath}} ({{file.fmtLength}})</span>
             </li>
           </ul>
-          <div ng-show="hasStatus(download, 'active')" class="download-item hidden-phone">
-            <div class="download-graph" dspeed="download.downloadSpeed" uspeed="download.uploadSpeed" xticks="7" yticks="7"  dgraph draw="!download.collapsed"></div>
-          </div>
         </div>
       </div>
     </div>
@@ -703,7 +700,7 @@
       <pagination
         total-items="totalDownloads"
         items-per-page="pageSize"
-        max-size="11"
+        max-size="25"
         ng-model="currentPage"
         boundary-links="true"
         previous-text="&lsaquo;"
