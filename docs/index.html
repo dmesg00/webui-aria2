@@ -3,16 +3,13 @@
 
 <!-- {{{ head -->
 <head>
-  <link rel="icon" href="../favicon.ico" />
+  <link rel="icon" href="ico/favicon.png" />
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0A8476">
-
-  <title ng-bind="$root.pageTitle">Aria2 WebUI</title>
-
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  <title ng-bind="$root.pageTitle">webui-aria2 custom</title>
 
 <link href="app.css" rel="stylesheet"><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script></head>
 <!-- }}} -->
@@ -149,7 +146,8 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand">
-              <svg class="icon icon-fw"><use xlink:href="#icon-arrow-circle-down"></use></svg> {{ name }}
+              <!-- <svg class="icon icon-fw"><use xlink:href="#icon-arrow-circle-down"></use></svg> {{ name }} -->
+              <strong><img src="ico/logo.png" width="30" height="30"> webui-aria2 custom</strong>
             </a>
         </div>
 
@@ -305,6 +303,12 @@
                     </ul>
                 </li>
             </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown" dropdown>
+                    <a href="#" class="dropdown-toggle" dropdown-toggle> {{gstats.uploadSpeed | bspeed}} |  {{gstats.downloadSpeed | bspeed}}</a>
+                </li>
+            </ul>
         </div>
         <!-- }}} -->
     </div>
@@ -325,123 +329,7 @@
 <!-- }}} -->
 
 <div class="row-fluid">
-  <div ng-class="{'col-md-3': enable.sidebar.show}" ng-show="enable.sidebar.show">
-    <!-- {{{ nav side bar -->
-    <div class="sidebar-nav">
 
-      <!-- {{{ global statistics -->
-      <ul class="nav nav-list" ng-if="enable.sidebar.stats">
-        <li class="nav-header" ng-show="totalAria2Downloads()">{{ 'Global Statistics' | translate }}</li>
-        <li>
-          <div
-            id="global-graph"
-            yticks="3"
-            xticks="1"
-            dspeed="gstats.downloadSpeed"
-            uspeed="gstats.uploadSpeed"
-            dgraph ng-show="totalAria2Downloads()"
-            nolabel="true"
-            draw="true">
-          </div>
-        </li>
-        <li>
-          <span title="Upload Speed"><svg class="icon icon-fw"><use xlink:href="#icon-arrow-circle-o-up"></use></svg>{{gstats.uploadSpeed | bspeed}}</span><br />
-          <span title="Download Speed"><svg class="icon icon-fw"><use xlink:href="#icon-arrow-circle-o-down"></use></svg>{{gstats.downloadSpeed | bspeed}}</span>
-        </li>
-      </ul>
-      <!-- }}} -->
-
-      <br />
-
-      <!-- {{{ download filters -->
-      <ul id="filters" class="clearfix nav nav-list" ng-show="enable.sidebar.filters">
-        <li class="nav-header">{{ 'Download Filters' | translate }}</li>
-        <li class="checkbox">
-          <label for="filter-speed">
-            <input type="checkbox" ng-model="filterSpeed" ng-change="persistFilters()" id="filter-speed">
-            {{ 'Running' | translate }}
-          </label>
-        </li>
-        <li class="active checkbox">
-          <label for="filter-active">
-            <input type="checkbox" ng-model="filterActive" ng-change="persistFilters()" id="filter-active">
-            {{ 'Active' | translate }}
-          </label>
-        </li>
-        <li class="checkbox">
-          <label for="filter-waiting">
-            <input type="checkbox" ng-model="filterWaiting" ng-change="persistFilters()" id="filter-waiting">
-            {{ 'Waiting' | translate }}
-          </label>
-        </li>
-        <li class="checkbox">
-          <label for="filter-complete">
-            <input type="checkbox" ng-model="filterComplete" ng-change="persistFilters()" id="filter-complete">
-            {{ 'Complete' | translate }}
-          </label>
-        </li>
-        <li class="checkbox">
-          <label for="filter-error">
-            <input type="checkbox" ng-model="filterError" ng-change="persistFilters()" id="filter-error">
-            {{ 'Error' | translate }}
-          </label>
-        </li>
-        <li class="checkbox">
-          <label for="filter-paused">
-            <input type="checkbox" ng-model="filterPaused" ng-change="persistFilters()" id="filter-paused">
-            {{ 'Paused' | translate }}
-          </label>
-        </li>
-        <li class="checkbox">
-          <label for="filter-removed">
-            <input type="checkbox" ng-model="filterRemoved" ng-change="persistFilters()" id="filter-removed">
-            {{ 'Removed' | translate }}
-          </label>
-        </li>
-        <li class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="hideLinkedMetadata" id="hide-linked-metadata">
-            {{ 'Hide linked meta-data' | translate }}
-          </label>
-        </li>
-        <li>
-          <p>
-          {{ 'Displaying' | translate }} <strong>{{totalDownloads}}</strong> {{ 'of' | translate }} <em>{{totalAria2Downloads()}}&nbsp;</em> {{ 'downloads' | translate }}
-          </p>
-          <p>
-            <button ng-click="toggleStateFilters()" class="btn btn-default btn-xs">{{ 'Toggle' | translate }}</button>
-            <button ng-click="resetFilters()" class="btn btn-default btn-xs">{{ 'Reset filters' | translate }}</button>
-          </p>
-        </li>
-      </ul>
-      <!-- }}} -->
-
-      <br />
-
-
-      <!-- {{{ starred properties -->
-      <ul class="clearfix nav nav-list" ng-controller="StarredPropsCtrl" ng-show="properties.length && enable.sidebar.starredProps">
-        <li class="nav-header">{{ 'Quick Access Settings' | translate }}</li>
-        <li ng-repeat="prop in properties" class="form-group">
-          <label title="{{prop.desc}}" style="width: 100%;">{{prop.name}}</label>
-          <div class="form-group">
-            <select style="width: 100%;" ng-show="prop.options.length && !prop.multiline" class="form-control" ng-options="opt for opt in prop.options" ng-model="prop.val"></select>
-            <input style="width: 100%;" ng-show="!prop.options.length && !prop.multiline" type="text" class="form-control input-large" ng-model="prop.val"/>
-            <textarea style="width: 100%;" ng-show="prop.multiline" ng-model="prop.val"></textarea>
-          </div>
-        </li>
-        <li>
-          <button ng-disabled="!enabled()" ng-click="save()" class="btn btn-default btn-sm">{{ 'Save settings' | translate }}</button>
-        </li>
-      </ul>
-      <!-- }}} -->
-
-
-    </div>
-    <!-- }}} -->
-  </div>
-
-  <div ng-class="{'col-md-9': enable.sidebar.show, 'col-md-12': !enable.sidebar.show }">
     <!-- {{{ downloads -->
     <!-- Bug?? <div ng-show="!totalAria2Downloads() && totalAria2Downloads() > getDownloads()" class="hero-unit">-->
     <div ng-show="!totalAria2Downloads()" class="download-empty">
@@ -543,11 +431,11 @@
 
         <div class="title">
             <svg ng-show="download.metadata" class="icon icon-fw" style="fill: red"><use xlink:href="#icon-magnet"></use></svg>
-            {{download.name}}
+              {{download.name}}
         </div>
     </div>
       <div class="download-overview download-item clearfix" ng-switch="download.status">
-        <!-- {{{ statistics -->
+        <!-- {{{ statistics --> 
         <ul class="stats pull-left" ng-switch-when="active">
           <!-- {{{ active download statistics -->
           <li class="label label-active hidden-phone hidden-tablet">
@@ -827,7 +715,6 @@
     </div>
   </div>
   <!-- }}} -->
-</div>
 
 </div>
 
