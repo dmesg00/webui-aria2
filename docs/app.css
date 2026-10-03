@@ -787,9 +787,9 @@ pre code {
 .container:after {
   clear: both;
 }
-@media (min-width: 768px) {
+@media (min-width: 945px) {
   .container {
-    width: 750px;
+    width: 925px;
   }
 }
 @media (min-width: 992px) {
